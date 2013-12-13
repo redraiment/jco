@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicates 
+ * Describes a field as a single command-line option.
  * @author redraiment
  */
 @Target(ElementType.FIELD)
