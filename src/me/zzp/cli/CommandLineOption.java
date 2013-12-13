@@ -6,11 +6,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Main entry-point into the library. 
+ * It may flexibly parse long and short options. Additionally, it may parse
+ * multi-values as an Array to an option.
+ * @author redraiment.
+ */
 public final class CommandLineOption {
     private final Map<String, String> optionName;
     private final Map<String, OptionMetadata> optionMetadata;
     private final Object target;
     
+    /**
+     * Constructs an CommandLineOption with the object  whose field should be modified.
+     * @param type class of unsupported type.
+     */
     private CommandLineOption(Object target) {
         this.target = target;
         optionName = new HashMap<String, String>();
