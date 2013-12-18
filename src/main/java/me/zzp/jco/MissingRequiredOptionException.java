@@ -1,4 +1,4 @@
-package me.zzp.cli;
+package me.zzp.jco;
 
 /**
  * Thrown to indicate that the specified option is required but not specified.
@@ -10,6 +10,6 @@ public class MissingRequiredOptionException extends Exception {
      * @param option name of required option.
      */
     public MissingRequiredOptionException(String option) {
-        super(option.concat(" is required"));
+        super(String.format("Option `%s' is required", option));
     }
 }

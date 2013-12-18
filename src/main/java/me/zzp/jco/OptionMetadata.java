@@ -1,4 +1,4 @@
-package me.zzp.cli;
+package me.zzp.jco;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -20,9 +20,7 @@ final class OptionMetadata {
     private final boolean multiValue; // If the target type is an Array
     boolean required;                 // If the option must be specifiy
     boolean specified;                // If the value has setted.
-
     boolean hasArgument;              // switch or option?
-    String defaultValue;
 
     OptionMetadata(Field field) {
         this.field = field;
@@ -37,9 +35,6 @@ final class OptionMetadata {
         hasArgument = !Boolean.class.equals(type);
         required = field.getAnnotation(Required.class) != null;
         specified = false;
-        
-        Optional optional = field.getAnnotation(Optional.class);
-        defaultValue = optional != null? optional.defaultValue(): null;
     }
     
     /**

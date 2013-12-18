@@ -1,4 +1,4 @@
-package me.zzp.cli;
+package me.zzp.jco;
 
 /**
  * Thrown to indicate that a option has been passed an illegal or inappropriate argument.
@@ -10,6 +10,6 @@ public class IllegalOptionArgumentException extends Exception {
      * @param value illegal or inappropriate argument.
      */
     public IllegalOptionArgumentException(String value) {
-        super(String.format("Cannot convert %s to target type", value));
+        super(String.format("Cannot convert `%s' to target type", value));
     }
 }

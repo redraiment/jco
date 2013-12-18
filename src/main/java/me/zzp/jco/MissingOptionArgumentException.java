@@ -1,4 +1,4 @@
-package me.zzp.cli;
+package me.zzp.jco;
 
 /**
  * Thrown to indicate that the specified option requires an argument
@@ -12,6 +12,6 @@ public class MissingOptionArgumentException extends Exception {
      * @param type the type of argument.
      */
     public MissingOptionArgumentException(String option, Class<?> type) {
-        super(String.format("Option %s need a %s type argument", option, type.getName()));
+        super(String.format("Option `%s' need a `%s' type argument", option, type.getName()));
     }
 }

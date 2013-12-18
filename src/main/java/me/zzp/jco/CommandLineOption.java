@@ -1,4 +1,4 @@
-package me.zzp.cli;
+package me.zzp.jco;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -42,14 +42,14 @@ public final class CommandLineOption {
             optionMetadata.put(fieldName, new OptionMetadata(field));
 
             String shortName = option.shortName().trim();
-            if (shortName.length() == 0) {
+            if (shortName.length() > 0) {
                 optionName.put(shortName, fieldName);
             }
 
             String longName = option.name().trim();
             if (longName.length() == 0) {
                 // CamelCase to camel-case
-                longName = fieldName.replaceAll("[A-Z]", "-\\&").toLowerCase();
+                longName = fieldName.replaceAll("(?=[A-Z])", "-").toLowerCase();
             }
             optionName.put(longName, fieldName);
         }
@@ -88,8 +88,6 @@ public final class CommandLineOption {
             if (meta.hasArgument) {
                 if (i + 1 < args.length && !args[i + 1].startsWith("-")) {
                     value = args[++i];
-                } else if (meta.defaultValue != null) {
-                    value = meta.defaultValue;
                 } else {
                     throw new MissingOptionArgumentException(option, meta.type);
                 }
@@ -100,13 +98,27 @@ public final class CommandLineOption {
         for (OptionMetadata arg : optionMetadata.values()) {
             if (arg.required && ! arg.specified) {
                 throw new MissingRequiredOptionException(arg.name);
-            } else if (!arg.required && !arg.specified && arg.defaultValue != null) {
-                arg.setValue(target, arg.defaultValue);
             }
         }
         return rest.toArray(new String[0]);
     }
 
+    /**
+     * Parse the arguments according to the specified options.
+     * @param o the target object that options' values will bind to.
+     * @param args the command line arguments
+     * @return the rest arguments (not an option and not an argument of option).
+     * @throws MissingOptionArgumentException
+     * if an option need an argument but not specified.
+     * @throws UnsupportedOptionArgumentTypeException
+     * if the target type does not have a constructor with String argument.
+     * @throws IllegalOptionArgumentException
+     * if the string does not contain a parsable data.
+     * @throws MissingRequiredOptionException
+     * if the required option is not specified.
+     * @throws UnsupportedOptionException 
+     * no such option.
+     */
     public static String[] assign(Object o, String[] args) throws
             MissingOptionArgumentException,
             UnsupportedOptionArgumentTypeException,

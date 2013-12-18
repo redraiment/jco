@@ -1,4 +1,4 @@
-package me.zzp.cli;
+package me.zzp.jco;
 
 /**
  * Thrown to indicate that the type of #{Option} annotation indicated option
@@ -11,6 +11,6 @@ public class UnsupportedOptionArgumentTypeException extends Exception {
      * @param type class of unsupported type.
      */
     public UnsupportedOptionArgumentTypeException(Class<?> type) {
-        super(String.format("Type %s is unsupported, need a constructor with java.lang.String", type.getName()));
+        super(String.format("Type `%s' is unsupported, need a constructor with java.lang.String", type.getName()));
     }
 }

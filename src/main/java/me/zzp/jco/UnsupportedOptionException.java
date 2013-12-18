@@ -1,4 +1,4 @@
-package me.zzp.cli;
+package me.zzp.jco;
 
 /**
  * Thrown to indicate that the specified option is not supported.
@@ -10,6 +10,6 @@ public class UnsupportedOptionException extends Exception {
      * @param option name of unsupported option.
      */
     public UnsupportedOptionException(String option) {
-        super(String.format("option %s is unsupported", option));
+        super(String.format("option `%s' is unsupported", option));
     }
 }
